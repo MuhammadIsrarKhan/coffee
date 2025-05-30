@@ -23,12 +23,30 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+"ILuvCoffee" is a REST API built using the [Nest](https://github.com/nestjs/nest) framework. It's a coffee shop application that allows managing coffee inventory with their flavors and ratings.
+
+### Features
+- Coffee management (CRUD operations)
+- Flavor categorization
+- Coffee ratings
+- Data persistence with PostgreSQL
+- Config validation with Joi
+- API filtering and pagination
+- Custom exception filters
 
 ## Project setup
 
 ```bash
+# Install dependencies
 $ npm install
+
+# Set up the PostgreSQL database
+# Create a .env file with the following variables:
+# DATABASE_HOST=localhost
+# DATABASE_PORT=5432
+# DATABASE_USERNAME=postgres
+# DATABASE_PASSWORD=pass123
+# DATABASE_NAME=postgres
 ```
 
 ## Compile and run the project
@@ -59,40 +77,66 @@ $ npm run test:cov
 
 ## Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+This application can be deployed using Docker. A `docker-compose.yml` file is included in the project root to simplify the deployment process.
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Build and start the containers
+$ docker-compose up -d
+
+# To stop the containers
+$ docker-compose down
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## API Documentation
+
+Once the application is running, you can access the Swagger API documentation at:
+```
+http://localhost:3000/api
+```
+
+## Database Migrations
+
+This project uses TypeORM migrations to manage database schema changes:
+
+```bash
+# Generate a new migration
+$ npm run migration:generate -- CoffeeRefactor
+
+# Run migrations
+$ npm run migration:run
+
+# Revert migrations
+$ npm run migration:revert
+```
+
+## Project Structure
+
+```
+src/
+├── app.module.ts         # Main application module
+├── main.ts               # Application entry point
+├── coffees/              # Coffee module and related files
+│   ├── coffees.controller.ts
+│   ├── coffees.module.ts
+│   ├── coffees.service.ts
+│   ├── dto/              # Data Transfer Objects
+│   └── entities/         # TypeORM entities
+├── coffee-rating/        # Coffee rating module
+├── common/               # Shared components
+│   ├── dto/              # Common DTOs
+│   └── filters/          # Exception filters
+│       └── http-exception/
+└── events/               # Event tracking module
+    └── entities/
+```
 
 ## Resources
 
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- [NestJS Documentation](https://docs.nestjs.com)
+- [TypeORM Documentation](https://typeorm.io/)
+- [Docker Documentation](https://docs.docker.com/)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is [MIT licensed](LICENSE).
